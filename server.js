@@ -2,21 +2,21 @@
 
 class Server {
   constructor() {
-    //consiguiendo variable de ambiente
+    // pass
   }
 
   start() {
     const fs = require("fs");
-    //leyendo librerias externas
+    // external dependencies
     const express = require("express");
     const bodyParser = require("body-parser");
     const helmet = require("helmet");
 
-    // iniciando express y middlewares
+    // express y middlewares init
     this.app = express();
     this.app.use(helmet());
 
-    //config bodyParser
+    // config bodyParser
     this.app.use(
       bodyParser.urlencoded({
         extended: true
@@ -30,29 +30,12 @@ class Server {
       })
     );
 
-    //documentacion
-    this.app.use("/", express.static("doc"));
-    //Se incorpora carpeta para las imagenes
-    this.app.use("/", express.static("files"));
+    // //documentacion
+    // this.app.use("/", express.static("doc"));
+    // //Se incorpora carpeta para las imagenes
+    // this.app.use("/", express.static("files"));
 
-    // inicializando APIs
-    // let dirTables = "./services";
-    // const dirs = fs.readdirSync(dirTables);
-    // for (let i = 0; i < dirs.length; i++) {
-    //   let path = dirs[i];
-    //   let pathTabla = `${dirTables}/${path}/meli_scraper`;
-    //   if (fs.existsSync(pathTabla) && fs.lstatSync(pathTabla).isDirectory()) {
-    //     const dirServices = fs.readdirSync(pathTabla);
-    //     for (let j = 0; j < dirServices.length; j++) {
-    //       let pathService = dirServices[j];
-    //       let pathApi = `${pathTabla}/${pathService}/api.js`;
-    //       if (fs.existsSync(pathApi)) {
-    //         let api = require("." + pathApi);
-    //         api(this.app, `/meli_scraper/${path}`, config);
-    //       }
-    //     }
-    //   }
-    // }
+    // APIs init
     let dirServices = "./services";
     let dirss = fs.readdirSync(dirServices);
     for (let i = 0; i < dirss.length; i++) {
@@ -60,16 +43,16 @@ class Server {
       let pathTabla = `${dirServices}/${path}`;
       let pathApi = `${pathTabla}/api.js`;
       if (fs.lstatSync(pathTabla).isDirectory() && fs.existsSync(pathApi)) {
-        let api = require("." + pathApi);
-        api(this.app, `/iterable/${path}`, config);
+        let api = require(pathApi);
+        api(this.app, `/meli_scrapper/${path}`);
       }
     }
 
-    // inicializando el server
+    // server init
     this.app.listen(process.env.PORT || 3000, () => {
       console.log(
-        `Servidor de ambiente [${process.env.NODE_ENV ||
-          "test"}] iniciado en puerto: ${process.env.PORT}`
+        `Sever initialized in env: ${process.env.NODE_ENV ||
+          "test"} and port: ${process.env.PORT || 3000}`
       );
     });
   }

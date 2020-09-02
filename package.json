@@ -9,12 +9,13 @@
     "express": "^4.17.1",
     "fs": "^0.0.1-security",
     "helmet": "^4.1.0",
+    "http-status": "^1.4.2",
     "morgan": "^1.10.0"
   },
   "devDependencies": {},
   "scripts": {
     "test": "nodemon index.js",
-    "start": "node server.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
