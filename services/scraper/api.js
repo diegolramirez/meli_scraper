@@ -7,9 +7,13 @@ module.exports = async function(app, prefix) {
   const model = new Model();
 
   app.get(prefix + "/:text", (req, res) => {
-    const text = model.helloWorld(req.params.text);
-    console.log(text);
-    res.status(status.OK).json(text);
+    try {
+      const text = model.helloWorld(req.params.text);
+      console.log(text);
+      res.status(status.OK).json(text);
+    } catch (err) {
+      console.log(err);
+    }
     return res;
   });
 };

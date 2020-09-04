@@ -10,9 +10,12 @@
     "fs": "^0.0.1-security",
     "helmet": "^4.1.0",
     "http-status": "^1.4.2",
-    "morgan": "^1.10.0"
+    "morgan": "^1.10.0",
+    "puppeteer": "^5.2.1"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "nodemon": "^2.0.4"
+  },
   "scripts": {
     "test": "nodemon index.js",
     "start": "node index.js"
