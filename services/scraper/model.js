@@ -14,7 +14,7 @@ class Model {
     return str;
   }
 
-  async scraperBuscador(item, country = "ar", pages = 5) {
+  async scraperBuscador(item, pages = 5, country = "ar") {
     let browser = await puppeteer.launch();
     let page = await browser.newPage();
 
@@ -59,15 +59,19 @@ class Model {
     let browser = await puppeteer.launch();
     let page = await browser.newPage();
 
-    console.log("scraperItem", itemurl);
-    await page.goto(itemurl, {waitUntil: "networkidle2"});
+    // console.log("scraperItem", itemurl);
+    await page.goto(itemurl);
 
     let out = {};
-
-    out.vendor = await page.evaluate(() => {
-      return document.querySelectorAll('span[class="ui-pdp-color--BLUE"]')[0]
-        .innerText;
-    });
+    try {
+      out.vendor = await page.evaluate(() => {
+        return document.querySelectorAll('span[class="ui-pdp-color--BLUE"]')[0]
+          .innerText;
+      });
+    } catch (err) {
+      // console.log("no vendor info:", itemurl);
+      out.vendor = "n/a";
+    }
     await browser.close();
     return out;
   }

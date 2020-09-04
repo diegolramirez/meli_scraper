@@ -18,16 +18,14 @@
   },
   "scripts": {
     "test": "nodemon index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "test_scraper": "nodemon services/scraper/test.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/diegolramirez/meli_scraper.git"
   },
-  "keywords": [
-    "scraper",
-    "meli"
-  ],
+  "keywords": ["scraper", "meli"],
   "author": "diegolramirez",
   "license": "ISC",
   "bugs": {
