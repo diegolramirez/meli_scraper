@@ -12,7 +12,15 @@ const Model = require("./model");
 
   const matcher = new Model(input);
 
-  console.log(matcher.items.slice(0, 10));
+  matcher.similarityScore(input[0], input[1]);
+  matcher.similarityScore(input[10], input[20]);
+  // matcher.similarityScore(
+  //   {price: 10, nameMatch: "lala"},
+  //   {price: 10, nameMatch: "lala"}
+  // );
+  // matcher.priceSimilarityScore(60000, 6100);
+
+  // console.log(matcher.items.slice(0, 10));
 
   console.log("end:", moment().format("YYYY-MM-DD hh:mm:ss"));
 })();
