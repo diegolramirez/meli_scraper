@@ -1,29 +1,18 @@
 "use strict";
 
-const Model = require("./model");
 const fs = require("fs");
-const _model = new Model();
+const moment = require("moment-timezone");
+const Model = require("./model");
+// const _model = new Model();
 
 (async () => {
-  // process.setMaxListeners(0);
+  console.log("start:", moment().format("YYYY-MM-DD hh:mm:ss"));
 
-  let res = await _model.scraperBuscador("xiaomi");
-  console.log("total capturados:", res.length);
+  const input = JSON.parse(fs.readFileSync("./out.json"));
 
-  const step = 10;
-  let res2 = [];
-  for (let i = 0; i < res.length; i += step) {
-    console.log("voy por", i);
-    res2 = res2.concat(
-      await Promise.all(
-        res.slice(i, i + step).map(async item => {
-          item.vendor = (await _model.scraperItem(item.itemurl)).vendor;
-          return item;
-        })
-      )
-    );
-  }
+  const matcher = new Model(input);
 
-  fs.writeFileSync(`./out.json`, JSON.stringify(res2));
-  console.log("guardado en ./out.json");
+  console.log(matcher.items.slice(0, 10));
+
+  console.log("end:", moment().format("YYYY-MM-DD hh:mm:ss"));
 })();

@@ -84,7 +84,7 @@ class Model {
               price: priceDecimal
                 ? priceFormatter(priceMain.innerText, priceDecimal.innerText)
                 : priceFormatter(priceMain.innerText),
-              name: item.title,
+              name: item.title.trim(),
               itemurl: item.href
             };
           });
@@ -114,7 +114,7 @@ class Model {
     let out = {};
     try {
       out.vendor = await page.evaluate(vendorElement => {
-        return document.querySelectorAll(vendorElement)[0].innerText;
+        return document.querySelectorAll(vendorElement)[0].innerText.trim();
       }, VENDOR_ELEMENT);
     } catch (err) {
       // console.log("no vendor info:", itemurl);
