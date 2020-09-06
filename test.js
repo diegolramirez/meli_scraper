@@ -2,7 +2,8 @@
 
 const fs = require("fs");
 const moment = require("moment-timezone");
-const Model = require("./model");
+const Matcher = require("./services/matcher/model");
+const Scraper = require("./services/scraper/model");
 // const _model = new Model();
 
 (async () => {

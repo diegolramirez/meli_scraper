@@ -15,10 +15,10 @@ const MAX_NORM = Math.sqrt(
 const MIN_SIMILARITY_SCORE = 0.9;
 const SIMILARITY_THRESHOLD = 0.9;
 
-console.log("MAX_NORM", MAX_NORM);
+// console.log("MAX_NORM", MAX_NORM);
 
 class Model {
-  constructor(items, priceRange = 1.25) {
+  constructor(items, priceRange = 1.2) {
     this.items = items;
     this.uniqueItems = [];
     this.priceRange = priceRange;
@@ -31,6 +31,10 @@ class Model {
 
   set setPriceRange(priceRange) {
     this.priceRange = priceRange;
+  }
+
+  set setUniqueItems(uniqueItems) {
+    this.uniqueItems = uniqueItems;
   }
 
   itemNameFormatter() {
@@ -107,7 +111,23 @@ class Model {
   }
 
   uniqueItemsFormatter() {
-    this.uniqueItems.map(cluster => {});
+    this.uniqueItems = this.uniqueItems.map(cluster => {
+      cluster.itemCount = cluster.items.length;
+      cluster.minPrice = Math.min(...cluster.items.map(ele => ele.price));
+      cluster.maxPrice = Math.max(...cluster.items.map(ele => ele.price));
+
+      // cluster.minPrice = cluster.items.reduce(
+      //   (min, currentValue) => Math.min(min, currentValue.price),
+      //   cluster.items[0]
+      // );
+
+      // cluster.maxPrice = cluster.items.reduce(
+      //   (max, currentValue) => Math.max(max, currentValue.price),
+      //   cluster.items[0].price
+      // );
+
+      return cluster;
+    });
   }
 
   matcher() {
