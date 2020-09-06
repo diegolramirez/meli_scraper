@@ -7,12 +7,12 @@ const fs = require("fs");
 (async () => {
   // process.setMaxListeners(0);
 
-  const xiaomiScraper = new Model("arena para gatos gaticos");
-  console.log(xiaomiScraper.query);
+  const scraper = new Model("arena para gatos gaticos");
+  console.log(scraper.query);
 
-  await xiaomiScraper.scraperSearch();
-  console.log(xiaomiScraper.items.length);
-  console.log(xiaomiScraper.items.slice(0, 5));
+  await scraper.scraperSearch();
+  console.log(scraper.items.length);
+  console.log(scraper.items.slice(0, 5));
   // console.log("total capturados:", res.length);
   //
   // const step = 10;
