@@ -15,8 +15,8 @@ const Model = require("./model");
   console.log(scraper.items.length);
   // console.log(scraper.items.slice(0, 5));
 
-  fs.writeFileSync(`./out.json`, JSON.stringify(scraper.items));
-  console.log("guardado en ./out.json");
+  fs.writeFileSync(`./outScraper.json`, JSON.stringify(scraper.items));
+  console.log("guardado en ./outScraper.json");
 
   console.log("end:", moment().format("YYYY-MM-DD hh:mm:ss"));
 })();

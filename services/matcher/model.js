@@ -12,8 +12,8 @@ const MAX_NORM = Math.sqrt(
     .map(pos => Math.pow(pos, 2))
     .reduce((a, b) => a + b, 0)
 );
-const MIN_SIMILARITY_SCORE = 0.5;
-const SIMILARITY_THRESHOLD = 0.7;
+const MIN_SIMILARITY_SCORE = 0.9;
+const SIMILARITY_THRESHOLD = 0.9;
 
 console.log("MAX_NORM", MAX_NORM);
 
@@ -35,7 +35,7 @@ class Model {
 
   itemNameFormatter() {
     this.items = this.items.map(item => {
-      item.nameMatch = item.name.tokenizeAndStem().join(" ");
+      item.nameStem = item.name.tokenizeAndStem().join(" ");
       return item;
     });
   }
@@ -49,15 +49,13 @@ class Model {
     this.itemSorter();
   }
 
-  priceFilter(index) {
-    const arr = this.items.filter(
-      item =>
-        item.price >= this.items[index].price &&
-        item.price < this.items[index].price * this.priceRange
-    );
-    console.log(arr.length);
-    console.log(arr);
-    return arr;
+  priceFilter(price) {
+    const itemIndexes = this.items
+      .filter(
+        item => item.price >= price && item.price < price * this.priceRange
+      )
+      .map(item => this.items.findIndex(ele => ele == item));
+    return itemIndexes;
   }
 
   nameSimilarityScore(str1, str2) {
@@ -76,8 +74,8 @@ class Model {
     // console.log("item1", item1);
     // console.log("item2", item2);
     const nameSimilarityScore = this.nameSimilarityScore(
-      item1.nameMatch,
-      item2.nameMatch
+      item1.nameStem,
+      item2.nameStem
     );
     const priceSimilarityScore = this.priceSimilarityScore(
       item1.price,
@@ -103,12 +101,56 @@ class Model {
         ) / MAX_NORM;
     }
 
-    console.log(similarityVector);
-    console.log(similarityScore);
+    // console.log(similarityVector);
+    // console.log(similarityScore);
     return {similarityScore, similarityVector};
   }
 
-  matcher() {}
+  uniqueItemsFormatter() {
+    this.uniqueItems.map(cluster => {});
+  }
+
+  matcher() {
+    this.uniqueItems = [];
+
+    for (let i = 0; i < this.items.length - 1; i++) {
+      let mainItem = this.items[i];
+      console.log("voy por:", i, mainItem.name);
+      let mainPossibleMatches = this.priceFilter(mainItem.price);
+      console.log(`tiene ${mainPossibleMatches.length} posibles matches`);
+
+      for (let j of mainPossibleMatches) {
+        let subItem = this.items[j];
+        if (j === i || subItem.clusterId !== undefined) continue;
+        const {similarityScore, similarityVector} = this.similarityScore(
+          mainItem,
+          subItem
+        );
+
+        if (similarityScore >= SIMILARITY_THRESHOLD) {
+          if (mainItem.clusterId === undefined) {
+            const clusterId = this.uniqueItems.length;
+            mainItem.clusterId = clusterId;
+            subItem.clusterId = clusterId;
+            this.uniqueItems.push({
+              clusterId: clusterId,
+              items: [mainItem, subItem]
+            });
+          } else {
+            const clusterId = mainItem.clusterId;
+            subItem.clusterId = clusterId;
+            this.uniqueItems[clusterId].items.push(subItem);
+          }
+          this.items[i] = mainItem;
+          this.items[j] = subItem;
+        }
+      }
+    }
+
+    this.uniqueItemsFormatter();
+
+    return this.uniqueItems;
+  }
 }
 
 module.exports = Model;
