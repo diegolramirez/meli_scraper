@@ -1,58 +1,93 @@
 "use strict";
 
-const axios = require("axios");
+// external libraries
 const puppeteer = require("puppeteer");
 
+// constants for html element classes to be searched
+const ITEM_LIST_ELEMENT = 'li[class="ui-search-layout__item"]';
+const ITEM_ELEMENT = 'a[class="ui-search-item__group__element ui-search-link"]';
+const PRICE_ELEMENT = 'span[class="price-tag-fraction"]';
+const VENDOR_ELEMENT = 'span[class="ui-pdp-color--BLUE"]';
+
 class Model {
-  constructor() {
-    this.PRICE_CLASS = 'span[class="price-tag-fraction"]';
-    this.ITEM_CLASS =
-      'a[class="ui-search-item__group__element ui-search-link"]';
+  constructor(query, pages = 5, country = "ar") {
+    this.query = this.queryFormatter(query);
+    this.pages = pages;
+    this.country = country;
+    this.items = [];
   }
 
-  helloWorld(str = "Hello World!") {
-    return str;
+  // setters - no getters
+  set setQuery(query) {
+    this.query = this.queryFormatter(query);
   }
 
-  async scraperBuscador(item, pages = 5, country = "ar") {
+  set setPages(pages) {
+    this.pages = pages;
+  }
+
+  set setCountry(country) {
+    this.country = country;
+  }
+
+  queryFormatter(query) {
+    return encodeURI(
+      query
+        .trim()
+        .replace(/\s\s+/g, " ")
+        .replace(/\s/g, "-")
+    );
+  }
+
+  // priceFormatter(main, decimals = 0) {
+  //   return parseFloat(price.replace);
+  // }
+
+  async scraperSearch() {
+    // reset list of scraped items
+    this.items = [];
+
     let browser = await puppeteer.launch();
     let page = await browser.newPage();
 
-    let out = [];
     let i = 0;
 
-    while (i < pages) {
-      let url = `https://celulares.mercadolibre.com.${country}/${item}/${
-        out.length ? `_Desde_${out.length + 1}` : ""
-      }`;
-      console.log("scraper", url);
+    while (i < this.pages) {
+      let url = `https://listado.mercadolibre.com.${this.country}/${
+        this.query
+      }/${this.items.length ? `_Desde_${this.items.length + 1}` : ""}`;
+      console.log("scraperSearch - url:", url);
+
       await page.goto(url, {waitUntil: "networkidle2"});
 
-      let data = await page.evaluate(() => {
-        let lis = Array.from(
-          document.querySelectorAll('li[class="ui-search-layout__item"]')
-        );
+      let data = await page.evaluate(
+        (itemListElement, itemElement, priceElement) => {
+          let lis = Array.from(document.querySelectorAll(itemListElement));
 
-        return lis.map(li => {
-          console.log(this.PRICE_CLASS);
-          let price = li.querySelector('span[class="price-tag-fraction"]');
-          let item = li.querySelector(
-            'a[class="ui-search-item__group__element ui-search-link"]'
-          );
+          return lis.map(li => {
+            console.log(this.PRICE_CLASS);
+            let item = li.querySelector(itemElement);
+            let price = li.querySelector(priceElement);
 
-          return {
-            price: price.innerText,
-            name: item.title,
-            itemurl: item.href
-          };
-        });
-      });
+            return {
+              price: price.innerText,
+              name: item.title,
+              itemurl: item.href
+            };
+          });
+        },
+        ITEM_LIST_ELEMENT,
+        ITEM_ELEMENT,
+        PRICE_ELEMENT
+      );
 
-      out = out.concat(data);
+      if (!data.length) break;
+
+      this.items = this.items.concat(data);
       i++;
     }
     await browser.close();
-    return out;
+    // return this.items;
   }
 
   async scraperItem(itemurl) {
@@ -64,10 +99,9 @@ class Model {
 
     let out = {};
     try {
-      out.vendor = await page.evaluate(() => {
-        return document.querySelectorAll('span[class="ui-pdp-color--BLUE"]')[0]
-          .innerText;
-      });
+      out.vendor = await page.evaluate(vendorElement => {
+        return document.querySelectorAll(vendorElement)[0].innerText;
+      }, VENDOR_ELEMENT);
     } catch (err) {
       // console.log("no vendor info:", itemurl);
       out.vendor = "n/a";
