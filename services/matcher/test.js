@@ -12,7 +12,8 @@ const Model = require("./model");
 
   const matcher = new Model(input);
 
-  matcher.similarityScore(input[0], input[1]);
+  const res1 = matcher.similarityScore(input[0], input[1]);
+  console.log("res1", res1);
   matcher.similarityScore(input[10], input[20]);
   // matcher.similarityScore(
   //   {price: 10, nameMatch: "lala"},

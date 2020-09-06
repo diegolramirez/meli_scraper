@@ -4,11 +4,7 @@
   "description": "Scraper and matcher of MeLi's products",
   "main": "index.js",
   "dependencies": {
-    "axios": "^0.20.0",
-    "body-parse": "^0.1.0",
-    "compute-cosine-similarity": "^1.0.0",
     "express": "^4.17.1",
-    "fs": "^0.0.1-security",
     "helmet": "^4.1.0",
     "http-status": "^1.4.2",
     "moment-timezone": "^0.5.31",
@@ -22,16 +18,14 @@
   "scripts": {
     "test": "nodemon index.js",
     "start": "node index.js",
-    "test_scraper": "nodemon services/scraper/test.js"
+    "test-scraper": "nodemon services/scraper/test.js",
+    "test-matcher": "nodemon services/matcher/test.js"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/diegolramirez/meli_scraper.git"
   },
-  "keywords": [
-    "scraper",
-    "meli"
-  ],
+  "keywords": ["scraper", "meli"],
   "author": "diegolramirez",
   "license": "ISC",
   "bugs": {

@@ -5,15 +5,17 @@ const natural = require("natural");
 natural.PorterStemmer.attach();
 // natural.PorterStemmerES.attach();
 
-const NAME_WEIGHT = 1;
-const PRICE_WEIGHT = 1;
-const SIMILARITY_THRESHOLD = 0.7;
+const NAME_WEIGHT = 3;
+const PRICE_WEIGHT = 2;
 const MAX_NORM = Math.sqrt(
   [NAME_WEIGHT, PRICE_WEIGHT]
     .map(pos => Math.pow(pos, 2))
     .reduce((a, b) => a + b, 0)
 );
 const MIN_SIMILARITY_SCORE = 0.5;
+const SIMILARITY_THRESHOLD = 0.7;
+
+console.log("MAX_NORM", MAX_NORM);
 
 class Model {
   constructor(items, priceRange = 1.25) {
@@ -71,8 +73,8 @@ class Model {
   }
 
   similarityScore(item1, item2) {
-    console.log("item1", item1);
-    console.log("item2", item2);
+    // console.log("item1", item1);
+    // console.log("item2", item2);
     const nameSimilarityScore = this.nameSimilarityScore(
       item1.nameMatch,
       item2.nameMatch
@@ -86,15 +88,24 @@ class Model {
       priceSimilarityScore * PRICE_WEIGHT
     ];
 
-    const similarityScore =
-      Math.sqrt(
-        similarityVector.map(pos => Math.pow(pos, 2)).reduce((a, b) => a + b, 0)
-      ) / MAX_NORM;
+    let similarityScore = 0;
+    if (
+      !(
+        nameSimilarityScore < MIN_SIMILARITY_SCORE ||
+        priceSimilarityScore < MIN_SIMILARITY_SCORE
+      )
+    ) {
+      similarityScore =
+        Math.sqrt(
+          similarityVector
+            .map(pos => Math.pow(pos, 2))
+            .reduce((a, b) => a + b, 0)
+        ) / MAX_NORM;
+    }
 
-    console.log("MAX_NORM", MAX_NORM);
     console.log(similarityVector);
     console.log(similarityScore);
-    return similarityScore;
+    return {similarityScore, similarityVector};
   }
 
   matcher() {}
