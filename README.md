@@ -15,7 +15,7 @@ The following is a list of instructions to use this API.
     node v12.18.3+
     npm 6.14.8+
 
-It is possible to run with older versions of `node` and `npm` but is not guaranteed. For more information regarding installing `node` and `npm` follow this <a href='https://docs.npmjs.com/downloading-and-installing-node-js-and-npm'>link</a>
+It is possible to run with older versions of `node` and `npm` but it is not guaranteed. For more information regarding installing `node` and `npm` follow this <a href='https://docs.npmjs.com/downloading-and-installing-node-js-and-npm'>link</a>.
 
 ## Install
 
@@ -26,6 +26,8 @@ It is possible to run with older versions of `node` and `npm` but is not guarant
     npm start
 
 After the server is up and running just call the endpoint `POST meli_scrapper/scraper/query/` with a body containing the property `query` and wait for the results.
+
+To retrieve the results of the last queried item call `GET meli_scrapper/scraper/query/`.
 
 ## Documentation
 
@@ -45,19 +47,17 @@ The price similarity score is obtained by computing the percentage difference, f
 
 Each part of the process (scraper and matcher) has variables that may be modified in order to achieve different levels of accuracy. One may check the current parameters via `GET meli_scrapper/scraper/options/`, update them to custom values via `PUT meli_scrapper/scraper/options/` or restore them to default values via `PUT meli_scrapper/scraper/default/`.
 
-To retrieve the results of the last queried item call `GET meli_scrapper/scraper/query/`
-
 The scraper parameters are the following:
 
 <ul>
-<li><strong>country:</strong> which country's marketplace is going to be consulted. Must be one value of the following list: `[ar,bo,br,cl,co,cr,do,ec,gt,hn,mx,ni,pa,py,pe,sv,uy,ve]`</li>
+<li><strong>country:</strong> which country's marketplace is going to be consulted. Must be one value of the following list: [ar,bo,br,cl,co,cr,do,ec,gt,hn,mx,ni,pa,py,pe,sv,uy,ve]</li>
 <li><strong>pages:</strong> amount of result pages to be scraped. Must be an integer greater or equal than 1.</li>
 </ul>
 
 The matcher parameters are the following:
 
 <ul>
-<li><strong>priceRange:</strong> percentage of price that tow items can be apart. i.e `1.20` means 20%. Mus be a float greater or equal to 1.</li>
+<li><strong>priceRange:</strong> percentage of price that tow items can be apart. i.e 1.20 means 20%. Mus be a float greater or equal to 1.</li>
 <li><strong>nameWeight:</strong> custom weight of name variable in overall similarity score. Must be an integer greater or equal than 1.</li>
 <li><strong>priceWeight:</strong> custom weight of price variable in overall similarity score. Must be an integer greater or equal than 1.</li>
 <li><strong>minSimilarityScore:</strong> minimum similarity score each name and price must have. If any is lower then the the matching is rejected. Must be a float between 0 and 1.</li>
