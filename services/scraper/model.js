@@ -1,7 +1,5 @@
 "use strict";
 
-const fs = require("fs");
-const moment = require("moment-timezone");
 const Matcher = require("./matcher");
 const Scraper = require("./scraper");
 
@@ -32,20 +30,33 @@ class Model {
   }
 
   updateOptions(options) {
-    if (options.matcher.priceRange !== undefined)
-      this.matcher.setPriceRange = options.matcher.priceRange;
-    if (options.matcher.nameWeight !== undefined)
-      this.matcher.setNameWeight = options.matcher.nameWeight;
-    if (options.matcher.priceWeight !== undefined)
-      this.matcher.setPriceWeight = options.matcher.priceWeight;
-    if (options.matcher.minSimilarityScore !== undefined)
-      this.matcher.setMinSimilarityScore = options.matcher.minSimilarityScore;
-    if (options.matcher.similarityThreshold !== undefined)
-      this.matcher.setSimilarityThreshold = options.matcher.similarityThreshold;
-    if (options.scraper.pages !== undefined)
-      this.scraper.setPages = options.scraper.pages;
-    if (options.scraper.country !== undefined)
-      this.scraper.setCountry = options.scraper.country;
+    if (options.priceRange !== undefined)
+      this.matcher.setPriceRange = options.priceRange;
+    if (options.nameWeight !== undefined)
+      this.matcher.setNameWeight = options.nameWeight;
+    if (options.priceWeight !== undefined)
+      this.matcher.setPriceWeight = options.priceWeight;
+    if (options.minSimilarityScore !== undefined)
+      this.matcher.setMinSimilarityScore = options.minSimilarityScore;
+    if (options.similarityThreshold !== undefined)
+      this.matcher.setSimilarityThreshold = options.similarityThreshold;
+    if (options.pages !== undefined) this.scraper.setPages = options.pages;
+    if (options.country !== undefined)
+      this.scraper.setCountry = options.country;
+    // if (options.matcher.priceRange !== undefined)
+    //   this.matcher.setPriceRange = options.matcher.priceRange;
+    // if (options.matcher.nameWeight !== undefined)
+    //   this.matcher.setNameWeight = options.matcher.nameWeight;
+    // if (options.matcher.priceWeight !== undefined)
+    //   this.matcher.setPriceWeight = options.matcher.priceWeight;
+    // if (options.matcher.minSimilarityScore !== undefined)
+    //   this.matcher.setMinSimilarityScore = options.matcher.minSimilarityScore;
+    // if (options.matcher.similarityThreshold !== undefined)
+    //   this.matcher.setSimilarityThreshold = options.matcher.similarityThreshold;
+    // if (options.scraper.pages !== undefined)
+    //   this.scraper.setPages = options.scraper.pages;
+    // if (options.scraper.country !== undefined)
+    //   this.scraper.setCountry = options.scraper.country;
 
     return true;
   }

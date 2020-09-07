@@ -11,10 +11,12 @@ class Server {
     const express = require("express");
     const bodyParser = require("body-parser");
     const helmet = require("helmet");
+    // const validator = require("express-validator");
 
     // express y middlewares init
     this.app = express();
     this.app.use(helmet());
+    // this.app.use(validator());
 
     // config bodyParser
     this.app.use(
