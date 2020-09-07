@@ -1,40 +1,64 @@
 "use strict";
 
 const natural = require("natural");
-// const similarity = require("compute-cosine-similarity");
 natural.PorterStemmer.attach();
-// natural.PorterStemmerES.attach();
 
-const NAME_WEIGHT = 3;
-const PRICE_WEIGHT = 2;
-const MAX_NORM = Math.sqrt(
-  [NAME_WEIGHT, PRICE_WEIGHT]
-    .map(pos => Math.pow(pos, 2))
-    .reduce((a, b) => a + b, 0)
-);
-const MIN_SIMILARITY_SCORE = 0.9;
-const SIMILARITY_THRESHOLD = 0.9;
+// constants for default values
+const DEFUALT_PRICE_RANGE = 1.2;
+const DEFUALT_NAME_WEIGHT = 3;
+const DEFUALT_PRICE_WEIGHT = 2;
+const DEFUALT_MIN_SIMILARITY_SCORE = 0.85;
+const DEFUALT_SIMILARITY_THRESHOLD = 0.9;
 
-// console.log("MAX_NORM", MAX_NORM);
-
-class Model {
-  constructor(items, priceRange = 1.2) {
-    this.items = items;
-    this.uniqueItems = [];
-    this.priceRange = priceRange;
-    this.itemsPreProcess();
+class Matcher {
+  constructor() {
+    this.resetProperties();
   }
 
   set setItems(items) {
     this.items = items;
+    this.itemsPreProcess();
   }
 
   set setPriceRange(priceRange) {
     this.priceRange = priceRange;
   }
 
-  set setUniqueItems(uniqueItems) {
-    this.uniqueItems = uniqueItems;
+  set setNameWeight(nameWeight) {
+    this.nameWeight = nameWeight;
+    this.maxNorm = this.calcMaxNorm();
+  }
+
+  set setPriceWeight(priceWeight) {
+    this.priceWeight = priceWeight;
+    this.maxNorm = this.calcMaxNorm();
+  }
+
+  set setMinSimilarityScore(minSimilarityScore) {
+    this.minSimilarityScore = minSimilarityScore;
+  }
+
+  set setSimilarityThreshold(similarityThreshold) {
+    this.similarityThreshold = similarityThreshold;
+  }
+
+  calcMaxNorm() {
+    this.maxNorm = Math.sqrt(
+      [this.nameWeight, this.priceWeight]
+        .map(ele => Math.pow(ele, 2))
+        .reduce((a, b) => a + b, 0)
+    );
+  }
+
+  resetProperties() {
+    this.items = [];
+    this.uniqueItems = [];
+    this.priceRange = DEFUALT_PRICE_RANGE;
+    this.nameWeight = DEFUALT_NAME_WEIGHT;
+    this.priceWeight = DEFUALT_PRICE_WEIGHT;
+    this.maxNorm = this.calcMaxNorm();
+    this.minSimilarityScore = DEFUALT_MIN_SIMILARITY_SCORE;
+    this.similarityThreshold = DEFUALT_SIMILARITY_THRESHOLD;
   }
 
   itemNameFormatter() {
@@ -44,13 +68,13 @@ class Model {
     });
   }
 
-  itemSorter() {
+  itemPriceSorter() {
     this.items.sort((a, b) => (a.price > b.price ? 1 : -1));
   }
 
   itemsPreProcess() {
     this.itemNameFormatter();
-    this.itemSorter();
+    this.itemPriceSorter();
   }
 
   priceFilter(price) {
@@ -75,8 +99,6 @@ class Model {
   }
 
   similarityScore(item1, item2) {
-    // console.log("item1", item1);
-    // console.log("item2", item2);
     const nameSimilarityScore = this.nameSimilarityScore(
       item1.nameStem,
       item2.nameStem
@@ -86,15 +108,15 @@ class Model {
       item2.price
     );
     const similarityVector = [
-      nameSimilarityScore * NAME_WEIGHT,
-      priceSimilarityScore * PRICE_WEIGHT
+      nameSimilarityScore * this.nameWeight,
+      priceSimilarityScore * this.priceWeight
     ];
 
     let similarityScore = 0;
     if (
       !(
-        nameSimilarityScore < MIN_SIMILARITY_SCORE ||
-        priceSimilarityScore < MIN_SIMILARITY_SCORE
+        nameSimilarityScore < this.minSimilarityScore ||
+        priceSimilarityScore < this.minSimilarityScore
       )
     ) {
       similarityScore =
@@ -102,12 +124,9 @@ class Model {
           similarityVector
             .map(pos => Math.pow(pos, 2))
             .reduce((a, b) => a + b, 0)
-        ) / MAX_NORM;
+        ) / this.maxNorm;
     }
-
-    // console.log(similarityVector);
-    // console.log(similarityScore);
-    return {similarityScore, similarityVector};
+    return similarityScore;
   }
 
   uniqueItemsFormatter() {
@@ -115,16 +134,6 @@ class Model {
       cluster.itemCount = cluster.items.length;
       cluster.minPrice = Math.min(...cluster.items.map(ele => ele.price));
       cluster.maxPrice = Math.max(...cluster.items.map(ele => ele.price));
-
-      // cluster.minPrice = cluster.items.reduce(
-      //   (min, currentValue) => Math.min(min, currentValue.price),
-      //   cluster.items[0]
-      // );
-
-      // cluster.maxPrice = cluster.items.reduce(
-      //   (max, currentValue) => Math.max(max, currentValue.price),
-      //   cluster.items[0].price
-      // );
 
       return cluster;
     });
@@ -142,12 +151,9 @@ class Model {
       for (let j of mainPossibleMatches) {
         let subItem = this.items[j];
         if (j === i || subItem.clusterId !== undefined) continue;
-        const {similarityScore, similarityVector} = this.similarityScore(
-          mainItem,
-          subItem
-        );
+        const similarityScore = this.similarityScore(mainItem, subItem);
 
-        if (similarityScore >= SIMILARITY_THRESHOLD) {
+        if (similarityScore >= this.similarityThreshold) {
           if (mainItem.clusterId === undefined) {
             const clusterId = this.uniqueItems.length;
             mainItem.clusterId = clusterId;
@@ -173,4 +179,4 @@ class Model {
   }
 }
 
-module.exports = Model;
+module.exports = Matcher;

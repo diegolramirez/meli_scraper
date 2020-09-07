@@ -2,9 +2,8 @@
 
 const fs = require("fs");
 const moment = require("moment-timezone");
-const Matcher = require("./services/matcher/model");
-const Scraper = require("./services/scraper/model");
-// const _model = new Model();
+const Matcher = require("./matcher");
+// const _matcher = new Matcher();
 
 (async () => {
   console.log("start:", moment().format("YYYY-MM-DD hh:mm:ss"));
@@ -12,7 +11,7 @@ const Scraper = require("./services/scraper/model");
   const inputScraper = JSON.parse(fs.readFileSync("./outScraper.json"));
   const inputMatcher = JSON.parse(fs.readFileSync("./outMatcher.json"));
 
-  const matcher = new Model(inputScraper);
+  const matcher = new Matcher(inputScraper);
   // matcher.uniqueItems = inputMatcher;
 
   // matcher.uniqueItemsFormatter();

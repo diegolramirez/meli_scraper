@@ -2,13 +2,13 @@
 
 const fs = require("fs");
 const moment = require("moment-timezone");
-const Model = require("./model");
-// const _model = new Model();
+const Scraper = require("./scraper");
+// const _scraper = new Scraper();
 
 (async () => {
   console.log("start:", moment().format("YYYY-MM-DD hh:mm:ss"));
 
-  const scraper = new Model("iphone");
+  const scraper = new Scraper("iphone");
   console.log(scraper.query);
 
   await scraper.scraperSearch();
