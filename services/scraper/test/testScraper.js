@@ -7,7 +7,7 @@ const Scraper = require("../scraper");
 (async () => {
   console.log("start:", moment().format("YYYY-MM-DD hh:mm:ss"));
 
-  const scraper = new Scraper("iphone");
+  const scraper = new Scraper("xiaomi");
 
   console.log(scraper.query);
 

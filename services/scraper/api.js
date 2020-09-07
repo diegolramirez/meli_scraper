@@ -10,7 +10,7 @@ module.exports = async function(app, prefix) {
 
   /**
    * @swagger
-   * /options:
+   * /meli_scrapper/scraper/options:
    *    get:
    *      description: Returns all of scraper and matcher algorithms current parameters.
    *    responses:
@@ -33,55 +33,55 @@ module.exports = async function(app, prefix) {
 
   /**
    * @swagger
-   * /options:
+   * /meli_scrapper/scraper/options:
    *    put:
    *      description: Update scraper and matcher algorithms parameters to custom values
    *    parameters:
    *      - name: priceRange
    *        in: body
-   *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
+   *        description: Percentage of price that tow items can be apart. i.e `1.20` means 20%. Mus be a float greater or equal to 1.
    *        required: false
    *        schema:
    *          type: number
    *          format: float
    *      - name: nameWeight
    *        in: body
-   *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
+   *        description: Custom weight of name variable in overall similarity score. Must be an integer greater or equal than 1.
    *        required: false
    *        schema:
    *          type: integer
    *          format: int32
    *      - name: priceWeight
    *        in: body
-   *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
+   *        description: Custom weight of price variable in overall similarity score. Must be an integer greater or equal than 1.
    *        required: false
    *        schema:
    *          type: integer
    *          format: int32
    *      - name: minSimilarityScore
    *        in: body
-   *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
+   *        description: Minimum similarity score each name and price must have. If any is lower then the the matching is rejected. Must be a float between 0 and 1.
    *        required: false
    *        schema:
    *          type: number
    *          format: float
    *      - name: similarityThreshold
    *        in: body
-   *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
+   *        description: Overall minimum similarity score needed for a pair of items to be matched. Must be a float between 0 and 1.
    *        required: false
    *        schema:
    *          type: number
    *          format: float
    *      - name: pages
    *        in: body
-   *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
+   *        description: Amount of result pages to be scraped. Must be an integer greater or equal than 1.
    *        required: false
    *        schema:
    *          type: integer
    *          format: int32
    *      - name: country
    *        in: body
-   *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
+   *        description: Which country's marketplace is going to be consulted. Must be one value of the following list `[ar,bo,br,cl,co,cr,do,ec,gt,hn,mx,ni,pa,py,pe,sv,uy,ve]`
    *        required: false
    *        schema:
    *          type: string
@@ -168,7 +168,7 @@ module.exports = async function(app, prefix) {
 
   /**
    * @swagger
-   * /default:
+   * /meli_scrapper/scraper/default:
    *    put:
    *      description: Restore all of scraper and matcher algorithms parameters to their default value.
    *    responses:
@@ -191,7 +191,7 @@ module.exports = async function(app, prefix) {
 
   /**
    * @swagger
-   * /query:
+   * /meli_scrapper/scraper/query:
    *    post:
    *      description: Returns all of scraper and matcher algorithms current parameters.
    *    responses:
@@ -228,7 +228,7 @@ module.exports = async function(app, prefix) {
 
   /**
    * @swagger
-   * /query:
+   * /meli_scrapper/scraper/query:
    *    get:
    *      description: Returns all of scraper and matcher algorithms current parameters.
    *    responses:

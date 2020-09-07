@@ -19,7 +19,7 @@ const Matcher = require("../matcher");
     `./utils/outMatcher.json`,
     JSON.stringify(matcher.uniqueItems)
   );
-  console.log("guardado en ./outMatcher.json");
+  console.log("guardado en ./utils/outMatcher.json");
 
   console.log("end:", moment().format("YYYY-MM-DD hh:mm:ss"));
 })();

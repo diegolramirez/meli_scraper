@@ -22,7 +22,7 @@ window.onload = function() {
     },
     "swagger": "2.0",
     "paths": {
-      "/options": {
+      "/meli_scrapper/scraper/options": {
         "get": {
           "description": "Returns all of scraper and matcher algorithms current parameters."
         },
@@ -41,7 +41,7 @@ window.onload = function() {
           {
             "name": "priceRange",
             "in": "body",
-            "description": "Price range to look for possible item matches. 1.20 implies 20% tolerance.",
+            "description": "Percentage of price that tow items can be apart. i.e `1.20` means 20%. Mus be a float greater or equal to 1.",
             "required": false,
             "schema": {
               "type": "number",
@@ -51,7 +51,7 @@ window.onload = function() {
           {
             "name": "nameWeight",
             "in": "body",
-            "description": "Price range to look for possible item matches. 1.20 implies 20% tolerance.",
+            "description": "Custom weight of name variable in overall similarity score. Must be an integer greater or equal than 1.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -61,7 +61,7 @@ window.onload = function() {
           {
             "name": "priceWeight",
             "in": "body",
-            "description": "Price range to look for possible item matches. 1.20 implies 20% tolerance.",
+            "description": "Custom weight of price variable in overall similarity score. Must be an integer greater or equal than 1.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -71,7 +71,7 @@ window.onload = function() {
           {
             "name": "minSimilarityScore",
             "in": "body",
-            "description": "Price range to look for possible item matches. 1.20 implies 20% tolerance.",
+            "description": "Minimum similarity score each name and price must have. If any is lower then the the matching is rejected. Must be a float between 0 and 1.",
             "required": false,
             "schema": {
               "type": "number",
@@ -81,7 +81,7 @@ window.onload = function() {
           {
             "name": "similarityThreshold",
             "in": "body",
-            "description": "Price range to look for possible item matches. 1.20 implies 20% tolerance.",
+            "description": "Overall minimum similarity score needed for a pair of items to be matched. Must be a float between 0 and 1.",
             "required": false,
             "schema": {
               "type": "number",
@@ -91,7 +91,7 @@ window.onload = function() {
           {
             "name": "pages",
             "in": "body",
-            "description": "Price range to look for possible item matches. 1.20 implies 20% tolerance.",
+            "description": "Amount of result pages to be scraped. Must be an integer greater or equal than 1.",
             "required": false,
             "schema": {
               "type": "integer",
@@ -101,7 +101,7 @@ window.onload = function() {
           {
             "name": "country",
             "in": "body",
-            "description": "Price range to look for possible item matches. 1.20 implies 20% tolerance.",
+            "description": "Which country's marketplace is going to be consulted. Must be one value of the following list `[ar,bo,br,cl,co,cr,do,ec,gt,hn,mx,ni,pa,py,pe,sv,uy,ve]`",
             "required": false,
             "schema": {
               "type": "string",
@@ -110,7 +110,7 @@ window.onload = function() {
           }
         ]
       },
-      "/default": {
+      "/meli_scrapper/scraper/default": {
         "put": {
           "description": "Restore all of scraper and matcher algorithms parameters to their default value."
         },
@@ -123,7 +123,7 @@ window.onload = function() {
           }
         }
       },
-      "/query": {
+      "/meli_scrapper/scraper/query": {
         "post": {
           "description": "Returns all of scraper and matcher algorithms current parameters."
         },

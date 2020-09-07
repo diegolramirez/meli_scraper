@@ -21,8 +21,9 @@
   "scripts": {
     "test": "nodemon index.js",
     "start": "export set NODE_ENV=prod && node index.js",
-    "test-scraper": "nodemon services/scraper/test.js",
-    "test-matcher": "nodemon services/matcher/test.js"
+    "test-scraper": "nodemon services/scraper/test/testScraper.js",
+    "test-matcher": "nodemon services/scraper/test/testMatcher.js",
+    "test-model": "nodemon services/scraper/test/testModel.js"
   },
   "repository": {
     "type": "git",
