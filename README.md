@@ -25,6 +25,8 @@ It is possible to run with older versions of `node` and `npm` but is not guarant
 
     npm start
 
+After the server is up and running just call the endpoint `POST meli_scrapper/scraper/query/` with a body containing the property `query` and wait for the results.
+
 ## Documentation
 
 A full list of endpoints and their characteristics can be found locally at `utils/Swagger UI.html`. Via Github at the following <a href='https://github.com/diegolramirez/meli_scraper/blob/master/utils/Swagger%20UI.html'>link</a>. Or after starting the server by accessing <a href='http://localhost:3000/api-docs/'>http://localhost:3000/api-docs/</a>.
@@ -41,7 +43,9 @@ The price similarity score is obtained by computing the percentage difference, f
 
 ## Default parameters
 
-Each part of the process (scraper and matcher) has variables that may be modified in order to achieve different levels of accuracy. One may check the current parameters via `GET scraper/options/`, update them to custom values via `PUT scraper/options/` or restore them to default values via `PUT scraper/default/`.
+Each part of the process (scraper and matcher) has variables that may be modified in order to achieve different levels of accuracy. One may check the current parameters via `GET meli_scrapper/scraper/options/`, update them to custom values via `PUT meli_scrapper/scraper/options/` or restore them to default values via `PUT meli_scrapper/scraper/default/`.
+
+To retrieve the results of the last queried item call `GET meli_scrapper/scraper/query/`
 
 The scraper parameters are the following:
 
