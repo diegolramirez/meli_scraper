@@ -60,7 +60,7 @@ class Server {
       let pathApi = `${pathTabla}/api.js`;
       if (fs.lstatSync(pathTabla).isDirectory() && fs.existsSync(pathApi)) {
         let api = require(pathApi);
-        api(this.app, `/meli_scrapper/${path}`);
+        api(this.app, `/meli_scraper/${path}`);
       }
     }
 

@@ -25,9 +25,9 @@ It is possible to run with older versions of `node` and `npm` but it is not guar
 
     npm start
 
-After the server is up and running just call the endpoint `POST meli_scrapper/scraper/query/` with a body containing the property `query` and wait for the results.
+After the server is up and running just call the endpoint `POST meli_scraper/scraper/query/` with a body containing the property `query` and wait for the results.
 
-To retrieve the results of the last queried item call `GET meli_scrapper/scraper/query/`.
+To retrieve the results of the last queried item call `GET meli_scraper/scraper/query/`.
 
 A postman collection containing templates for all requests may be found under `utils` folder.
 
@@ -47,7 +47,7 @@ The price similarity score is obtained by computing the percentage difference, f
 
 ## Default parameters
 
-Each part of the process (scraper and matcher) has variables that may be modified in order to achieve different levels of accuracy. One may check the current parameters via `GET meli_scrapper/scraper/options/`, update them to custom values via `PUT meli_scrapper/scraper/options/` or restore them to default values via `PUT meli_scrapper/scraper/default/`.
+Each part of the process (scraper and matcher) has variables that may be modified in order to achieve different levels of accuracy. One may check the current parameters via `GET meli_scraper/scraper/options/`, update them to custom values via `PUT meli_scraper/scraper/options/` or restore them to default values via `PUT meli_scraper/scraper/default/`.
 
 The scraper parameters are the following:
 

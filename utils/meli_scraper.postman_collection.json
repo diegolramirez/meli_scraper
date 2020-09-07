@@ -11,14 +11,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/meli_scrapper/scraper/options/",
+					"raw": "http://localhost:3000/meli_scraper/scraper/options/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"meli_scrapper",
+						"meli_scraper",
 						"scraper",
 						"options",
 						""
@@ -42,14 +42,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/meli_scrapper/scraper/options/",
+					"raw": "http://localhost:3000/meli_scraper/scraper/options/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"meli_scrapper",
+						"meli_scraper",
 						"scraper",
 						"options",
 						""
@@ -64,14 +64,14 @@
 				"method": "PUT",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/meli_scrapper/scraper/default/",
+					"raw": "http://localhost:3000/meli_scraper/scraper/default/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"meli_scrapper",
+						"meli_scraper",
 						"scraper",
 						"default",
 						""
@@ -95,14 +95,14 @@
 					}
 				},
 				"url": {
-					"raw": "http://localhost:3000/meli_scrapper/scraper/query/",
+					"raw": "http://localhost:3000/meli_scraper/scraper/query/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"meli_scrapper",
+						"meli_scraper",
 						"scraper",
 						"query",
 						""
@@ -117,14 +117,14 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "http://localhost:3000/meli_scrapper/scraper/query/",
+					"raw": "http://localhost:3000/meli_scraper/scraper/query/",
 					"protocol": "http",
 					"host": [
 						"localhost"
 					],
 					"port": "3000",
 					"path": [
-						"meli_scrapper",
+						"meli_scraper",
 						"scraper",
 						"query",
 						""

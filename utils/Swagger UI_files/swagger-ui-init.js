@@ -22,7 +22,7 @@ window.onload = function() {
     },
     "swagger": "2.0",
     "paths": {
-      "/meli_scrapper/scraper/options": {
+      "/meli_scraper/scraper/options": {
         "get": {
           "description": "Returns all of scraper and matcher algorithms current parameters."
         },
@@ -110,7 +110,7 @@ window.onload = function() {
           }
         ]
       },
-      "/meli_scrapper/scraper/default": {
+      "/meli_scraper/scraper/default": {
         "put": {
           "description": "Restore all of scraper and matcher algorithms parameters to their default value."
         },
@@ -123,7 +123,7 @@ window.onload = function() {
           }
         }
       },
-      "/meli_scrapper/scraper/query": {
+      "/meli_scraper/scraper/query": {
         "post": {
           "description": "Returns all of scraper and matcher algorithms current parameters."
         },

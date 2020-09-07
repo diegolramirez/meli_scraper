@@ -10,7 +10,7 @@ module.exports = async function(app, prefix) {
 
   /**
    * @swagger
-   * /meli_scrapper/scraper/options:
+   * /meli_scraper/scraper/options:
    *    get:
    *      description: Returns all of scraper and matcher algorithms current parameters.
    *    responses:
@@ -33,7 +33,7 @@ module.exports = async function(app, prefix) {
 
   /**
    * @swagger
-   * /meli_scrapper/scraper/options:
+   * /meli_scraper/scraper/options:
    *    put:
    *      description: Update scraper and matcher algorithms parameters to custom values
    *    parameters:
@@ -168,7 +168,7 @@ module.exports = async function(app, prefix) {
 
   /**
    * @swagger
-   * /meli_scrapper/scraper/default:
+   * /meli_scraper/scraper/default:
    *    put:
    *      description: Restore all of scraper and matcher algorithms parameters to their default value.
    *    responses:
@@ -191,9 +191,17 @@ module.exports = async function(app, prefix) {
 
   /**
    * @swagger
-   * /meli_scrapper/scraper/query:
+   * /meli_scraper/scraper/query:
    *    post:
    *      description: Returns all of scraper and matcher algorithms current parameters.
+   *    parameters:
+   *      - name: query
+   *        in: body
+   *        description: Item name to be searched.
+   *        required: true
+   *        schema:
+   *          type: string
+   *          format: string
    *    responses:
    *      '200':
    *        description: Parameters returned.
@@ -228,7 +236,7 @@ module.exports = async function(app, prefix) {
 
   /**
    * @swagger
-   * /meli_scrapper/scraper/query:
+   * /meli_scraper/scraper/query:
    *    get:
    *      description: Returns all of scraper and matcher algorithms current parameters.
    *    responses:
