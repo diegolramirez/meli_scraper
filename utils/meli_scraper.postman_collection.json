@@ -1,0 +1,138 @@
+{
+	"info": {
+		"_postman_id": "deef9db2-6e8a-4a42-8c63-04cd83b4e1ba",
+		"name": "meli_scraper",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "get/options/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/meli_scrapper/scraper/options/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"meli_scrapper",
+						"scraper",
+						"options",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put/options/",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"priceRange\": 1.5,\n    \"nameWeight\": 3,\n    \"priceWeight\": 1,\n    \"minSimilarityScore\": 0.89,\n    \"similarityThreshold\": 0.8,\n    \"pages\": 2,\n    \"country\": \"ar\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/meli_scrapper/scraper/options/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"meli_scrapper",
+						"scraper",
+						"options",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "put/default/",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/meli_scrapper/scraper/default/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"meli_scrapper",
+						"scraper",
+						"default",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "post/query/",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"query\": \"xiaomi\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:3000/meli_scrapper/scraper/query/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"meli_scrapper",
+						"scraper",
+						"query",
+						""
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get/query/",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:3000/meli_scrapper/scraper/query/",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "3000",
+					"path": [
+						"meli_scrapper",
+						"scraper",
+						"query",
+						""
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"protocolProfileBehavior": {}
+}

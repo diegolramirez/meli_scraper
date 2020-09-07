@@ -29,6 +29,8 @@ After the server is up and running just call the endpoint `POST meli_scrapper/sc
 
 To retrieve the results of the last queried item call `GET meli_scrapper/scraper/query/`.
 
+A postman collection containing templates for all requests may be found under `utils` folder.
+
 ## Documentation
 
 A full list of endpoints and their characteristics can be found locally at `utils/Swagger UI.html`. Via Github at the following <a href='https://github.com/diegolramirez/meli_scraper/blob/master/utils/Swagger%20UI.html'>link</a>. Or after starting the server by accessing <a href='http://localhost:3000/api-docs/'>http://localhost:3000/api-docs/</a>.
