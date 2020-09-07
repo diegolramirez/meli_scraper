@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const moment = require("moment-timezone");
-const Matcher = require("./matcher");
+const Matcher = require("../matcher");
 
 (async () => {
   console.log("start:", moment().format("YYYY-MM-DD hh:mm:ss"));

@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const moment = require("moment-timezone");
-const Scraper = require("./scraper");
+const Scraper = require("../scraper");
 
 (async () => {
   console.log("start:", moment().format("YYYY-MM-DD hh:mm:ss"));

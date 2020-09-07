@@ -2,7 +2,7 @@
 
 const fs = require("fs");
 const moment = require("moment-timezone");
-const Model = require("./model");
+const Model = require("../model");
 const _model = new Model();
 
 (async () => {
