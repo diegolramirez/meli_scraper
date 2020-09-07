@@ -12,6 +12,8 @@ const DEFUALT_SIMILARITY_THRESHOLD = 0.9;
 
 class Matcher {
   constructor() {
+    this.items = [];
+    this.uniqueItems = [];
     this.resetProperties();
   }
 
@@ -43,7 +45,7 @@ class Matcher {
   }
 
   calcMaxNorm() {
-    this.maxNorm = Math.sqrt(
+    return Math.sqrt(
       [this.nameWeight, this.priceWeight]
         .map(ele => Math.pow(ele, 2))
         .reduce((a, b) => a + b, 0)
@@ -51,8 +53,6 @@ class Matcher {
   }
 
   resetProperties() {
-    this.items = [];
-    this.uniqueItems = [];
     this.priceRange = DEFUALT_PRICE_RANGE;
     this.nameWeight = DEFUALT_NAME_WEIGHT;
     this.priceWeight = DEFUALT_PRICE_WEIGHT;
@@ -142,8 +142,9 @@ class Matcher {
   matcher() {
     this.uniqueItems = [];
 
-    for (let i = 0; i < this.items.length - 1; i++) {
+    for (let i = 0; i < this.items.length; i++) {
       let mainItem = this.items[i];
+      if (mainItem.clusterId !== undefined) continue;
       console.log("voy por:", i, mainItem.name);
       let mainPossibleMatches = this.priceFilter(mainItem.price);
       console.log(`tiene ${mainPossibleMatches.length} posibles matches`);

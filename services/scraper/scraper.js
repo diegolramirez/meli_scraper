@@ -17,6 +17,7 @@ const DEFAULT_COUNTRY = "ar";
 
 class Scraper {
   constructor() {
+    this.items = [];
     this.resetProperties();
   }
 
@@ -102,14 +103,15 @@ class Scraper {
       i++;
     }
     await browser.close();
-    // return this.items;
+
+    return this.items;
   }
 
   async scraperItem(itemurl) {
     let browser = await puppeteer.launch();
     let page = await browser.newPage();
 
-    // console.log("scraperItem", itemurl);
+    console.log("scraperItem", itemurl);
     await page.goto(itemurl);
 
     let out = {};
@@ -118,7 +120,7 @@ class Scraper {
         return document.querySelectorAll(vendorElement)[0].innerText.trim();
       }, VENDOR_ELEMENT);
     } catch (err) {
-      // console.log("no vendor info:", itemurl);
+      console.log("no vendor info:", itemurl);
       out.vendor = "n/a";
     }
     await browser.close();

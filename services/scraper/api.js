@@ -7,45 +7,61 @@ module.exports = async function(app, prefix) {
   const model = new Model();
 
   app.get(prefix + "/options", (req, res) => {
+    console.log("GET /options");
     try {
-      const text = model.helloWorld();
-      console.log(text);
-      res.status(status.OK).json(text);
+      const options = model.getOptions();
+      res.status(status.OK).json(options);
     } catch (err) {
       console.log(err);
-    }
-    return res;
-  });
-
-  app.put(prefix + "/options", (req, res) => {
-    try {
-      const text = model.helloWorld();
-      console.log(text);
-      res.status(status.OK).json(text);
-    } catch (err) {
-      console.log(err);
+      res.status(status.INTERNAL_SERVER_ERROR).json(err.message);
     }
     return res;
   });
 
   app.put(prefix + "/default", (req, res) => {
+    console.log("PUT /default");
     try {
-      const text = model.helloWorld();
-      console.log(text);
-      res.status(status.OK).json(text);
+      model.defaultOptions();
+      res.status(status.OK).json("Default options restored");
     } catch (err) {
       console.log(err);
+      res.status(status.INTERNAL_SERVER_ERROR).json(err.message);
     }
     return res;
   });
 
-  app.post(prefix + "/query", (req, res) => {
+  app.put(prefix + "/options", (req, res) => {
+    console.log("PUT /options - body:", req.body);
     try {
-      const text = model.helloWorld();
-      console.log(text);
-      res.status(status.OK).json(text);
+      model.updateOptions(req.body);
+      res.status(status.OK).json("Options updated");
     } catch (err) {
       console.log(err);
+      res.status(status.INTERNAL_SERVER_ERROR).json(err.message);
+    }
+    return res;
+  });
+
+  app.post(prefix + "/query", async (req, res) => {
+    console.log("POST /query - body:", req.body);
+    try {
+      const clusters = await model.newQueryResult(req.body.query);
+      res.status(status.OK).json(clusters);
+    } catch (err) {
+      console.log(err);
+      res.status(status.INTERNAL_SERVER_ERROR).json(err.message);
+    }
+    return res;
+  });
+
+  app.get(prefix + "/query", async (req, res) => {
+    console.log("GET /query");
+    try {
+      const clusters = await model.getQueryResult();
+      res.status(status.OK).json(clusters);
+    } catch (err) {
+      console.log(err);
+      res.status(status.INTERNAL_SERVER_ERROR).json(err.message);
     }
     return res;
   });
