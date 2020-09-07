@@ -3,26 +3,7 @@
 const status = require("http-status");
 const Model = require("./model");
 const {check, oneOf, validationResult} = require("express-validator");
-const countries = [
-  "ar",
-  "bo",
-  "br",
-  "cl",
-  "co",
-  "cr",
-  "do",
-  "ec",
-  "gt",
-  "hn",
-  "mx",
-  "ni",
-  "pa",
-  "py",
-  "pe",
-  "sv",
-  "uy",
-  "ve"
-];
+const countries = require("../../utils/countries");
 
 module.exports = async function(app, prefix) {
   const model = new Model();
@@ -110,7 +91,6 @@ module.exports = async function(app, prefix) {
       console.log("PUT /options - body:", req.body);
       try {
         const errors = validationResult(req).array();
-        console.log(errors);
         if (errors.length) {
           console.log(errors);
           res.status(status.UNPROCESSABLE_ENTITY).json({errors: errors});

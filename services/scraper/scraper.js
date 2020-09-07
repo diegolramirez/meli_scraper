@@ -16,7 +16,8 @@ const DEFAULT_PAGES = 5;
 const DEFAULT_COUNTRY = "ar";
 
 class Scraper {
-  constructor() {
+  constructor(query = "") {
+    this.query = this.queryFormatter(query);
     this.items = [];
     this.resetProperties();
   }

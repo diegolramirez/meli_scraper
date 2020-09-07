@@ -11,8 +11,8 @@ const DEFUALT_MIN_SIMILARITY_SCORE = 0.85;
 const DEFUALT_SIMILARITY_THRESHOLD = 0.9;
 
 class Matcher {
-  constructor() {
-    this.items = [];
+  constructor(items = []) {
+    this.items = items;
     this.uniqueItems = [];
     this.resetProperties();
   }
@@ -145,9 +145,9 @@ class Matcher {
     for (let i = 0; i < this.items.length; i++) {
       let mainItem = this.items[i];
       if (mainItem.clusterId !== undefined) continue;
-      console.log("voy por:", i, mainItem.name);
+      // console.log("voy por:", i, mainItem.name);
       let mainPossibleMatches = this.priceFilter(mainItem.price);
-      console.log(`tiene ${mainPossibleMatches.length} posibles matches`);
+      // console.log(`tiene ${mainPossibleMatches.length} posibles matches`);
 
       for (let j of mainPossibleMatches) {
         let subItem = this.items[j];
