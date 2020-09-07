@@ -42,50 +42,50 @@ module.exports = async function(app, prefix) {
    *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
    *        required: false
    *        schema:
-   *          type: float
+   *          type: number
    *          format: float
    *      - name: nameWeight
    *        in: body
    *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
    *        required: false
    *        schema:
-   *          type: int
-   *          format: int
+   *          type: integer
+   *          format: int32
    *      - name: priceWeight
    *        in: body
    *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
    *        required: false
    *        schema:
-   *          type: int
-   *          format: int
+   *          type: integer
+   *          format: int32
    *      - name: minSimilarityScore
    *        in: body
    *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
    *        required: false
    *        schema:
-   *          type: float
+   *          type: number
    *          format: float
    *      - name: similarityThreshold
    *        in: body
    *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
    *        required: false
    *        schema:
-   *          type: float
+   *          type: number
    *          format: float
    *      - name: pages
    *        in: body
    *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
    *        required: false
    *        schema:
-   *          type: int
-   *          format: int
+   *          type: integer
+   *          format: int32
    *      - name: country
    *        in: body
    *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
    *        required: false
    *        schema:
-   *          type: String
-   *          format: String
+   *          type: string
+   *          format: string
    *    responses:
    *      '200':
    *        description: Options successfully updated
