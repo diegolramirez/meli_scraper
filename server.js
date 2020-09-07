@@ -45,7 +45,7 @@ class Server {
           servers: ["http://localhost:3000"]
         }
       },
-      apis: ["services/scraper/api.js"]
+      apis: ["services/*/api.js"]
     };
 
     const swaggerDocs = swaggerJsDoc(swaggerOptions);

@@ -28,10 +28,7 @@
     "type": "git",
     "url": "git+https://github.com/diegolramirez/meli_scraper.git"
   },
-  "keywords": [
-    "scraper",
-    "meli"
-  ],
+  "keywords": ["scraper", "meli"],
   "author": "diegolramirez",
   "license": "ISC",
   "bugs": {
@@ -39,9 +36,7 @@
   },
   "homepage": "https://github.com/diegolramirez/meli_scraper#readme",
   "nodemonConfig": {
-    "ignore": [
-      "*.json"
-    ],
-    "delay": "1000"
+    "ignore": ["*.json"],
+    "delay": "500"
   }
 }

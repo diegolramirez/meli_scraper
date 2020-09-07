@@ -1,35 +1,24 @@
 "use strict";
 
 const status = require("http-status");
-// const swaggerJsDoc = require("swagger-jsdoc");
-// const swaggerUi = require("swagger-ui-express");
 const Model = require("./model");
 const {check, oneOf, validationResult} = require("express-validator");
 const countries = require("../../utils/countries");
 
-// // Extended: https://swagger.io/specification/#infoObject
-// const swaggerOptions = {
-//   swaggerDefinition: {
-//     info: {
-//       version: "1.0.0",
-//       title: "Customer API",
-//       description: "Customer API Information",
-//       contact: {
-//         name: "Amazing Developer"
-//       },
-//       servers: ["http://localhost:5000"]
-//     }
-//   },
-//   // ['.routes/*.js']
-//   apis: ["app.js"]
-// };
-//
-// const swaggerDocs = swaggerJsDoc(swaggerOptions);
-// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
-
 module.exports = async function(app, prefix) {
   const model = new Model();
 
+  /**
+   * @swagger
+   * /options:
+   *    get:
+   *      description: Returns all of scraper and matcher algorithms current parameters.
+   *    responses:
+   *      '200':
+   *        description: Parameters returned.
+   *      '500':
+   *        description: API failed unexpectedly.
+   */
   app.get(prefix + "/options", (req, res) => {
     console.log("GET /options");
     try {
@@ -44,33 +33,65 @@ module.exports = async function(app, prefix) {
 
   /**
    * @swagger
-   * /customers:
+   * /options:
    *    put:
-   *      description: Use to return all customers
+   *      description: Update scraper and matcher algorithms parameters to custom values
    *    parameters:
-   *      - name: customer
-   *        in: query
-   *        description: Name of our customer
+   *      - name: priceRange
+   *        in: body
+   *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
    *        required: false
    *        schema:
-   *          type: string
-   *          format: string
+   *          type: float
+   *          format: float
+   *      - name: nameWeight
+   *        in: body
+   *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
+   *        required: false
+   *        schema:
+   *          type: int
+   *          format: int
+   *      - name: priceWeight
+   *        in: body
+   *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
+   *        required: false
+   *        schema:
+   *          type: int
+   *          format: int
+   *      - name: minSimilarityScore
+   *        in: body
+   *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
+   *        required: false
+   *        schema:
+   *          type: float
+   *          format: float
+   *      - name: similarityThreshold
+   *        in: body
+   *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
+   *        required: false
+   *        schema:
+   *          type: float
+   *          format: float
+   *      - name: pages
+   *        in: body
+   *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
+   *        required: false
+   *        schema:
+   *          type: int
+   *          format: int
+   *      - name: country
+   *        in: body
+   *        description: Price range to look for possible item matches. 1.20 implies 20% tolerance.
+   *        required: false
+   *        schema:
+   *          type: String
+   *          format: String
    *    responses:
-   *      '201':
-   *        description: Successfully created user
+   *      '200':
+   *        description: Options successfully updated
+   *      '500':
+   *        description: API failed unexpectedly
    */
-  app.put(prefix + "/default", (req, res) => {
-    console.log("PUT /default");
-    try {
-      model.defaultOptions();
-      res.status(status.OK).json("Default options restored");
-    } catch (err) {
-      console.log(err);
-      res.status(status.INTERNAL_SERVER_ERROR).json(err.message);
-    }
-    return res;
-  });
-
   app.put(
     prefix + "/options",
     [
@@ -136,7 +157,7 @@ module.exports = async function(app, prefix) {
           return res;
         }
         model.updateOptions(req.body);
-        res.status(status.OK).json("Options updated");
+        res.status(status.OK).json("Options successfully updated");
       } catch (err) {
         console.log(err);
         res.status(status.INTERNAL_SERVER_ERROR).json(err.message);
@@ -145,6 +166,40 @@ module.exports = async function(app, prefix) {
     }
   );
 
+  /**
+   * @swagger
+   * /default:
+   *    put:
+   *      description: Restore all of scraper and matcher algorithms parameters to their default value.
+   *    responses:
+   *      '200':
+   *        description: Default options restored
+   *      '500':
+   *        description: API failed unexpectedly
+   */
+  app.put(prefix + "/default", (req, res) => {
+    console.log("PUT /default");
+    try {
+      model.defaultOptions();
+      res.status(status.OK).json("Default options restored");
+    } catch (err) {
+      console.log(err);
+      res.status(status.INTERNAL_SERVER_ERROR).json(err.message);
+    }
+    return res;
+  });
+
+  /**
+   * @swagger
+   * /query:
+   *    post:
+   *      description: Returns all of scraper and matcher algorithms current parameters.
+   *    responses:
+   *      '200':
+   *        description: Parameters returned.
+   *      '500':
+   *        description: API failed unexpectedly.
+   */
   app.post(
     prefix + "/query",
     [
@@ -171,6 +226,17 @@ module.exports = async function(app, prefix) {
     }
   );
 
+  /**
+   * @swagger
+   * /query:
+   *    get:
+   *      description: Returns all of scraper and matcher algorithms current parameters.
+   *    responses:
+   *      '200':
+   *        description: Parameters returned.
+   *      '500':
+   *        description: API failed unexpectedly.
+   */
   app.get(prefix + "/query", (req, res) => {
     console.log("GET /query");
     try {
