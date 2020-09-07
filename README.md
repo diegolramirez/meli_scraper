@@ -59,3 +59,19 @@ The matcher parameters are the following:
 <li><strong>minSimilarityScore:</strong> minimum similarity score each name and price must have. If any is lower then the the matching is rejected. Must be a float between 0 and 1.</li>
 <li><strong>similarityThreshold:</strong> overall minimum similarity score needed for a pair of items to be matched. Must be a float between 0 and 1.</li>
 </ul>
+
+These parameters have the following default values:
+
+    {
+        "matcher": {
+            "priceRange": 1.2,
+            "nameWeight": 3,
+            "priceWeight": 2,
+            "minSimilarityScore": 0.85,
+            "similarityThreshold": 0.9
+        },
+        "scraper": {
+            "pages": 5,
+            "country": "ar"
+        }
+    }
