@@ -1,9 +1,31 @@
 "use strict";
 
 const status = require("http-status");
+// const swaggerJsDoc = require("swagger-jsdoc");
+// const swaggerUi = require("swagger-ui-express");
 const Model = require("./model");
 const {check, oneOf, validationResult} = require("express-validator");
 const countries = require("../../utils/countries");
+
+// // Extended: https://swagger.io/specification/#infoObject
+// const swaggerOptions = {
+//   swaggerDefinition: {
+//     info: {
+//       version: "1.0.0",
+//       title: "Customer API",
+//       description: "Customer API Information",
+//       contact: {
+//         name: "Amazing Developer"
+//       },
+//       servers: ["http://localhost:5000"]
+//     }
+//   },
+//   // ['.routes/*.js']
+//   apis: ["app.js"]
+// };
+//
+// const swaggerDocs = swaggerJsDoc(swaggerOptions);
+// app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
 module.exports = async function(app, prefix) {
   const model = new Model();
@@ -20,6 +42,23 @@ module.exports = async function(app, prefix) {
     return res;
   });
 
+  /**
+   * @swagger
+   * /customers:
+   *    put:
+   *      description: Use to return all customers
+   *    parameters:
+   *      - name: customer
+   *        in: query
+   *        description: Name of our customer
+   *        required: false
+   *        schema:
+   *          type: string
+   *          format: string
+   *    responses:
+   *      '201':
+   *        description: Successfully created user
+   */
   app.put(prefix + "/default", (req, res) => {
     console.log("PUT /default");
     try {

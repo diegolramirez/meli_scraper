@@ -11,7 +11,9 @@
     "http-status": "^1.4.2",
     "moment-timezone": "^0.5.31",
     "natural": "^2.1.5",
-    "puppeteer": "^5.2.1"
+    "puppeteer": "^5.2.1",
+    "swagger-jsdoc": "^4.0.0",
+    "swagger-ui-express": "^4.1.4"
   },
   "devDependencies": {
     "nodemon": "^2.0.4"

@@ -11,12 +11,10 @@ class Server {
     const express = require("express");
     const bodyParser = require("body-parser");
     const helmet = require("helmet");
-    // const validator = require("express-validator");
 
     // express y middlewares init
     this.app = express();
     this.app.use(helmet());
-    // this.app.use(validator());
 
     // config bodyParser
     this.app.use(
@@ -33,9 +31,25 @@ class Server {
     );
 
     // //documentacion
-    // this.app.use("/", express.static("doc"));
-    // //Se incorpora carpeta para las imagenes
-    // this.app.use("/", express.static("files"));
+    const swaggerJsDoc = require("swagger-jsdoc");
+    const swaggerUi = require("swagger-ui-express");
+    const swaggerOptions = {
+      swaggerDefinition: {
+        info: {
+          version: "1.0.0",
+          title: "MeLi Scraper",
+          description: "Scraper and matcher of MeLi's products",
+          contact: {
+            name: "Diego Ramírez-Milano"
+          },
+          servers: ["http://localhost:3000"]
+        }
+      },
+      apis: ["services/scraper/api.js"]
+    };
+
+    const swaggerDocs = swaggerJsDoc(swaggerOptions);
+    this.app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerDocs));
 
     // APIs init
     let dirServices = "./services";
@@ -61,7 +75,6 @@ class Server {
 
   close() {
     this.app.close();
-    this.appPublico.close();
   }
 }
 
