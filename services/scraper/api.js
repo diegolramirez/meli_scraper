@@ -69,31 +69,42 @@ module.exports = async function(app, prefix) {
       check(
         "priceRange",
         "Price range must be a float with a value of at least 1"
-      ).isFloat({min: 1}),
+      )
+        .optional()
+        .isFloat({min: 1}),
       check(
         "nameWeight",
         "Name weight must be an integer with a value of at least 1"
-      ).isInt({min: 1}),
+      )
+        .optional()
+        .isInt({min: 1}),
       check(
         "priceWeight",
         "Price weight must be an integer with a value of at least 1"
-      ).isInt({min: 1}),
+      )
+        .optional()
+        .isInt({min: 1}),
       check(
         "minSimilarityScore",
         "Min similarity score must be a float with a value between 0 and 1"
-      ).isFloat({min: 0, max: 1}),
+      )
+        .optional()
+        .isFloat({min: 0, max: 1}),
       check(
         "similarityThreshold",
         "Similarity threshold must be a float with a value between 0 and 1"
-      ).isFloat({min: 0, max: 1}),
-      check(
-        "pages",
-        "Pages must be an integer with a value of at least 1"
-      ).isInt({min: 1}),
+      )
+        .optional()
+        .isFloat({min: 0, max: 1}),
+      check("pages", "Pages must be an integer with a value of at least 1")
+        .optional()
+        .isInt({min: 1}),
       check(
         "country",
         `Country must be one of the following list: ${countries.join(", ")}`
-      ).isIn(countries)
+      )
+        .optional()
+        .isIn(countries)
     ],
     (req, res) => {
       console.log("PUT /options - body:", req.body);
