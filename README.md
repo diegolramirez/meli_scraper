@@ -59,10 +59,10 @@ The scraper parameters are the following:
 The matcher parameters are the following:
 
 <ul>
-<li><strong>priceRange:</strong> percentage of price that tow items can be apart. i.e 1.20 means 20%. Mus be a float greater or equal to 1.</li>
+<li><strong>priceRange:</strong> percentage of price that two items can be apart. i.e 1.20 means 20%. Mus be a float greater or equal than 1.</li>
 <li><strong>nameWeight:</strong> custom weight of name variable in overall similarity score. Must be an integer greater or equal than 1.</li>
 <li><strong>priceWeight:</strong> custom weight of price variable in overall similarity score. Must be an integer greater or equal than 1.</li>
-<li><strong>minSimilarityScore:</strong> minimum similarity score each name and price must have. If any is lower then the the matching is rejected. Must be a float between 0 and 1.</li>
+<li><strong>minSimilarityScore:</strong> minimum similarity score each name and price must have. If any is lower then the matching is rejected. Must be a float between 0 and 1.</li>
 <li><strong>similarityThreshold:</strong> overall minimum similarity score needed for a pair of items to be matched. Must be a float between 0 and 1.</li>
 </ul>
 

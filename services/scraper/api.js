@@ -11,13 +11,15 @@ module.exports = async function(app, prefix) {
   /**
    * @swagger
    * /meli_scraper/scraper/options:
-   *    get:
-   *      description: Returns all of scraper and matcher algorithms current parameters.
-   *    responses:
-   *      '200':
-   *        description: Parameters returned.
-   *      '500':
-   *        description: API failed unexpectedly.
+   *   get:
+   *     description: Returns all of scraper and matcher algorithms current parameters.
+   *     produces:
+   *       - application/json
+   *     responses:
+   *       200:
+   *         description: Parameters returned.
+   *       500:
+   *         description: API failed unexpectedly.
    */
   app.get(prefix + "/options", (req, res) => {
     console.log("GET /options");
@@ -34,63 +36,64 @@ module.exports = async function(app, prefix) {
   /**
    * @swagger
    * /meli_scraper/scraper/options:
-   *    put:
-   *      description: Update scraper and matcher algorithms parameters to custom values
-   *    parameters:
-   *      - name: priceRange
-   *        in: body
-   *        description: Percentage of price that tow items can be apart. i.e `1.20` means 20%. Mus be a float greater or equal to 1.
-   *        required: false
-   *        schema:
-   *          type: number
-   *          format: float
-   *      - name: nameWeight
-   *        in: body
-   *        description: Custom weight of name variable in overall similarity score. Must be an integer greater or equal than 1.
-   *        required: false
-   *        schema:
-   *          type: integer
-   *          format: int32
-   *      - name: priceWeight
-   *        in: body
-   *        description: Custom weight of price variable in overall similarity score. Must be an integer greater or equal than 1.
-   *        required: false
-   *        schema:
-   *          type: integer
-   *          format: int32
-   *      - name: minSimilarityScore
-   *        in: body
-   *        description: Minimum similarity score each name and price must have. If any is lower then the the matching is rejected. Must be a float between 0 and 1.
-   *        required: false
-   *        schema:
-   *          type: number
-   *          format: float
-   *      - name: similarityThreshold
-   *        in: body
-   *        description: Overall minimum similarity score needed for a pair of items to be matched. Must be a float between 0 and 1.
-   *        required: false
-   *        schema:
-   *          type: number
-   *          format: float
-   *      - name: pages
-   *        in: body
-   *        description: Amount of result pages to be scraped. Must be an integer greater or equal than 1.
-   *        required: false
-   *        schema:
-   *          type: integer
-   *          format: int32
-   *      - name: country
-   *        in: body
-   *        description: Which country's marketplace is going to be consulted. Must be one value of the following list `[ar,bo,br,cl,co,cr,do,ec,gt,hn,mx,ni,pa,py,pe,sv,uy,ve]`
-   *        required: false
-   *        schema:
-   *          type: string
-   *          format: string
-   *    responses:
-   *      '200':
-   *        description: Options successfully updated
-   *      '500':
-   *        description: API failed unexpectedly
+   *   put:
+   *     description: Update scraper and matcher algorithms parameters to custom values
+   *     parameters:
+   *       - name: priceRange
+   *         in: body
+   *         description: Percentage of price that two items can be apart. i.e `1.20` means 20%. Mus be a float greater or equal to 1.
+   *         required: false
+   *         schema:
+   *           type: number
+   *           format: float
+   *         example: 1000
+   *       - name: nameWeight
+   *         in: body
+   *         description: Custom weight of name variable in overall similarity score. Must be an integer greater or equal than 1.
+   *         required: false
+   *         schema:
+   *           type: integer
+   *           format: int32
+   *       - name: priceWeight
+   *         in: body
+   *         description: Custom weight of price variable in overall similarity score. Must be an integer greater or equal than 1.
+   *         required: false
+   *         schema:
+   *           type: integer
+   *           format: int32
+   *       - name: minSimilarityScore
+   *         in: body
+   *         description: Minimum similarity score each name and price must have. If any is lower then the matching is rejected. Must be a float between 0 and 1.
+   *         required: false
+   *         schema:
+   *           type: number
+   *           format: float
+   *       - name: similarityThreshold
+   *         in: body
+   *         description: Overall minimum similarity score needed for a pair of items to be matched. Must be a float between 0 and 1.
+   *         required: false
+   *         schema:
+   *           type: number
+   *           format: float
+   *       - name: pages
+   *         in: body
+   *         description: Amount of result pages to be scraped. Must be an integer greater or equal than 1.
+   *         required: false
+   *         schema:
+   *           type: integer
+   *           format: int32
+   *       - name: country
+   *         in: body
+   *         description: Which country's marketplace is going to be consulted. Must be one value of the following list `[ar,bo,br,cl,co,cr,do,ec,gt,hn,mx,ni,pa,py,pe,sv,uy,ve]`
+   *         required: false
+   *         schema:
+   *           type: string
+   *           format: string
+   *     responses:
+   *       200:
+   *         description: Options successfully updated
+   *       500:
+   *         description: API failed unexpectedly
    */
   app.put(
     prefix + "/options",
@@ -169,13 +172,13 @@ module.exports = async function(app, prefix) {
   /**
    * @swagger
    * /meli_scraper/scraper/default:
-   *    put:
-   *      description: Restore all of scraper and matcher algorithms parameters to their default value.
-   *    responses:
-   *      '200':
-   *        description: Default options restored
-   *      '500':
-   *        description: API failed unexpectedly
+   *   put:
+   *     description: Restore all of scraper and matcher algorithms parameters to their default value.
+   *     responses:
+   *       200:
+   *         description: Default options restored
+   *       500:
+   *         description: API failed unexpectedly
    */
   app.put(prefix + "/default", (req, res) => {
     console.log("PUT /default");
@@ -192,21 +195,21 @@ module.exports = async function(app, prefix) {
   /**
    * @swagger
    * /meli_scraper/scraper/query:
-   *    post:
-   *      description: Returns all of scraper and matcher algorithms current parameters.
-   *    parameters:
-   *      - name: query
-   *        in: body
-   *        description: Item name to be searched.
-   *        required: true
-   *        schema:
-   *          type: string
-   *          format: string
-   *    responses:
-   *      '200':
-   *        description: Parameters returned.
-   *      '500':
-   *        description: API failed unexpectedly.
+   *   post:
+   *     description: Returns all of scraper and matcher algorithms current parameters.
+   *     parameters:
+   *       - name: query
+   *         in: body
+   *         description: Item name to be searched.
+   *         required: true
+   *         schema:
+   *           type: string
+   *           format: string
+   *     responses:
+   *       200:
+   *         description: Parameters returned.
+   *       500:
+   *         description: API failed unexpectedly.
    */
   app.post(
     prefix + "/query",
@@ -236,14 +239,14 @@ module.exports = async function(app, prefix) {
 
   /**
    * @swagger
-   * /meli_scraper/scraper/query:
-   *    get:
-   *      description: Returns all of scraper and matcher algorithms current parameters.
-   *    responses:
-   *      '200':
-   *        description: Parameters returned.
-   *      '500':
-   *        description: API failed unexpectedly.
+   * /meli_scraper/scraper/query :
+   *   get:
+   *     description: Returns all of scraper and matcher algorithms current parameters.
+   *     responses:
+   *       200:
+   *         description: Parameters returned.
+   *       500:
+   *         description: API failed unexpectedly.
    */
   app.get(prefix + "/query", (req, res) => {
     console.log("GET /query");
