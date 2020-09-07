@@ -11,7 +11,7 @@ const Scraper = require("./scraper");
 
   console.log(scraper.query);
 
-  await scraper.scraperSearch();
+  await scraper.scraper();
 
   console.log(scraper.items.length);
 
